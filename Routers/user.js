@@ -37,8 +37,8 @@ router.post("/loginuser",(req,res)=>{
     const {email,password}=req.body
 
     
-        User.find({email:email},(err,data)=>{
-            if(data[0].password==password){
+     User.find({},(err,data)=>{
+            if(data[0].password==password && data[0].email==email){
                 res.send(true)
             }else{
                 res.send(false)
