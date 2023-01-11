@@ -24,7 +24,7 @@ const upload=multer({storage:storage})
 
 
 router.post("/sliderimgpost",upload.single("image") ,(req,res)=>{
-    const imgPath=("http://localhost:8000/"+req.file.path)
+    const imgPath=("https://rm-fashion-backend.vercel.app/"+req.file.path)
 
     SliderImg.find({},(err,data)=>{
         if(data.length<4){

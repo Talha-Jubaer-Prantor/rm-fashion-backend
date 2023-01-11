@@ -21,7 +21,7 @@ const storage=multer.diskStorage(
 const upload=multer({storage:storage})
 
 router.post("/newproductpost", upload.single("image"), (req,res)=>{
-    const imgPath=("http://localhost:8000/"+req.file.path)
+    const imgPath=("https://rm-fashion-backend.vercel.app/"+req.file.path)
 
 
     const newProduct= new NewProduct({
