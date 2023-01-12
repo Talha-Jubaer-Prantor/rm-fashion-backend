@@ -18,8 +18,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.post("/fetureproductpost", upload.single("image"), (req, res) => {
-  const imgPath = "https://rm-fashion-backend.vercel.app/" + req.file.path;
+  const imgPath = req.file.path;
   
+console.log(req.headers)
+
   const newFetureProduct=new FetureProduct({
     name:req.body.name,
     price:req.body.price,
