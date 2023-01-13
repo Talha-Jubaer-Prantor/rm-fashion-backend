@@ -21,8 +21,8 @@ app.get("/",(req,res)=>{
 
 app.post("/createuser",user)
 app.post("/loginuser",user)
-app.post("/sliderimgpost",slider)
-app.post("/newproductpost",newProduct)
+app.use("/sliderimgpost",slider)
+app.use("/newproductpost",newProduct)
 app.use("/fetureproductpost",fetureProduct)
 app.get("/sliderimg",slider)
 app.get("/newproduct",newProduct)
