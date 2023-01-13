@@ -5,13 +5,15 @@ const slider=require("./Routers/slider")
 const newProduct=require("./Routers/newProduct")
 const fetureProduct=require("./Routers/fetureProduct")
 const mongoose=require("mongoose")
-
+const bodyParser= require("body-parser")
 
 
 const app=express()
 app.use(express.urlencoded({ extended : false }));
 app.use(express.json())
 app.use(cors())
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
 
 
 app.get("/",(req,res)=>{
