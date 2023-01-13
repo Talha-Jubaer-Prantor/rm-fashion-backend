@@ -17,7 +17,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-router.post("/fetureproductpost", upload.single("image"), (req, res) => {
+router.post("/fetureproductpost", upload.single("image"), async(req, res) => {
   const imgPath = req.file.path;
   
 console.log(req.headers)
@@ -27,7 +27,7 @@ console.log(req.headers)
     price:req.body.price,
     img:imgPath
   })
-  newFetureProduct.save()
+  await newFetureProduct.save()
   .then(res.send(true))
 }catch(err){
   console.log(err)
