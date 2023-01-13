@@ -22,14 +22,17 @@ router.post("/fetureproductpost", upload.single("image"), (req, res) => {
   
 console.log(req.headers)
 
-  const newFetureProduct=new FetureProduct({
+  try{const newFetureProduct=new FetureProduct({
     name:req.body.name,
     price:req.body.price,
     img:imgPath
   })
   newFetureProduct.save()
   .then(res.send(true))
-
+}catch(err){
+  console.log(err)
+}
+  
 });
 
 router.get("/fetureproduct",(req,res)=>{

@@ -27,11 +27,13 @@ app.post("/fetureproductpost",fetureProduct)
 app.get("/sliderimg",slider)
 app.get("/newproduct",newProduct)
 app.get("/fetureproduct",fetureProduct)
+const path = require("path");
 
 
 
-app.use('/images', express.static('images'))
-
+// app.use('/images', express.static('images'))
+// app.use('/static', express.static(__dirname, '/public'))
+app.use('/images', express.static(path.join(__dirname, 'images')))
 
 
 mongoose.set('strictQuery', false);
