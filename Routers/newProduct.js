@@ -5,28 +5,29 @@ const multer = require("multer")
 const path=require("path")
 const newProductSchema=require("../Schema/newProductSchema")
 const NewProduct=mongoose.model("NewProduct",newProductSchema)
+var fs = require("fs");
 
-const storage=multer.diskStorage(
-{
-    destination:(req,file,cb)=>{
-        cb(null,"images")
-    },
-    filename:(req,file,cb)=>{
-        cb(null, Date.now()+path.extname(file.originalname))
-    }
+// const storage=multer.diskStorage(
+// {
+//     destination:(req,file,cb)=>{
+//         cb(null,"images")
+//     },
+//     filename:(req,file,cb)=>{
+//         cb(null, Date.now()+path.extname(file.originalname))
+//     }
     
-}
+// }
 
-)
-const upload=multer({storage:storage})
+// )
+// const upload=multer({storage:storage})
 
-router.post("/newproductpost", upload.single("image"), (req,res)=>{
-    const imgPath=req.file.path
+router.post("/newproductpost", (req,res)=>{
 
+      console.log(req.body)
 
     const newProduct= new NewProduct({
         name:req.body.name,
-        img:imgPath
+        img:req.body.img
     })
     newProduct.save()
     .then(res.send(true))
@@ -41,4 +42,16 @@ router.get("/newproduct",(req,res)=>{
     })
 })
 
+
+router.post("/deletenewproduct", (req, res) => {
+
+  const id=req.body.path
+
+try{
+    NewProduct.findOneAndDelete( {_id:id })
+    .then(res.send(true))
+  }catch(err){
+    if(err){console.log(err)}
+  }
+})
 module.exports=router

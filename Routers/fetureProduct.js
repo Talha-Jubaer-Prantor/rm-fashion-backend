@@ -5,27 +5,19 @@ const multer = require("multer");
 const path = require("path");
 const fetureProductSchema = require("../Schema/fetureProductSchema");
 const FetureProduct = mongoose.model("FetureProduct", fetureProductSchema);
+var fs = require("fs");
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "images");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
 
-const upload = multer({ storage: storage });
 
-router.post("/fetureproductpost", upload.single("image"), async(req, res) => {
-  const imgPath = req.file.path;
+router.post("/fetureproductpost", async(req, res) => {
+ 
   
-console.log(req.headers)
+  console.log(req.body);
 
   try{const newFetureProduct=new FetureProduct({
     name:req.body.name,
     price:req.body.price,
-    img:imgPath
+    img:req.body.img
   })
   await newFetureProduct.save()
   .then(res.send(true))
@@ -42,5 +34,29 @@ router.get("/fetureproduct",(req,res)=>{
     })
 
 })
+
+
+router.post("/deletefeture", (req, res) => {
+    const id=req.body.path
+console.log(id)
+
+try{
+  FetureProduct.findOneAndDelete({_id:id})
+  .then(res.send(true))
+}catch(err){
+  if(err){console.log(err)}
+}
+
+
+// try{
+//   FetureProduct.findOneAndDelete( {_id:id })
+//   .then(res.send(true))
+// }catch(err){
+//   if(err){console.log(err)}
+// }
+
+
+
+});
 
 module.exports = router;

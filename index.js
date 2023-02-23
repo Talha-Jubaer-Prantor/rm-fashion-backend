@@ -5,15 +5,14 @@ const slider=require("./Routers/slider")
 const newProduct=require("./Routers/newProduct")
 const fetureProduct=require("./Routers/fetureProduct")
 const mongoose=require("mongoose")
-const bodyParser= require("body-parser")
 
 
 const app=express()
 app.use(express.urlencoded({ extended : false }));
 app.use(express.json())
 app.use(cors())
-app.use(bodyParser.urlencoded());
-app.use(bodyParser.json());
+//  app.use(bodyParser.urlencoded());
+//  app.use(bodyParser.json());
 
 
 app.get("/",(req,res)=>{
@@ -23,19 +22,23 @@ app.get("/",(req,res)=>{
 
 app.post("/createuser",user)
 app.post("/loginuser",user)
-app.use("/sliderimgpost",slider)
-app.use("/newproductpost",newProduct)
-app.use("/fetureproductpost",fetureProduct)
+app.post("/sliderimgpost",slider)
+app.post("/newproductpost",newProduct)
+app.post("/fetureproductpost",fetureProduct)
 app.get("/sliderimg",slider)
 app.get("/newproduct",newProduct)
 app.get("/fetureproduct",fetureProduct)
+app.post("/deleteslider",slider)
+app.post("/deletenewproduct",newProduct)
+app.post("/deletefeture",fetureProduct)
+app.post("/updatepass",user)
+
 const path = require("path");
 
 
 
-// app.use('/images', express.static('images'))
-// app.use('/static', express.static(__dirname, '/public'))
-app.use('/images', express.static(path.join(__dirname, 'images')))
+
+// app.use('/images', express.static(path.join(__dirname, 'images')))
 
 
 mongoose.set('strictQuery', false);
